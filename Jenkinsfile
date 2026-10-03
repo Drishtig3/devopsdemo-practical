@@ -23,10 +23,10 @@ pipeline {
         }
 
         stage('Docker Build') {
-            steps {
-                bat 'docker build -t devops-demo:latest .'
-            }
-        }
+    steps {
+        bat '"C:\\Users\\chand\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t devops-demo:latest .'
+    }
+}
 
         stage('Deploy') {
             steps {
