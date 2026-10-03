@@ -11,27 +11,27 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'dotnet restore'
-                sh 'dotnet build --configuration Release'
+                bat 'dotnet restore'
+                bat 'dotnet build --configuration Release'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'dotnet test --configuration Release'
+                bat 'dotnet test --configuration Release'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t devops-demo:latest .'
+                bat 'docker build -t devops-demo:latest .'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker rm -f devops-demo-container || true'
-                sh 'docker run -d -p 8080:8080 --name devops-demo-container devops-demo:latest'
+                bat 'docker rm -f devops-demo-container || true'
+                bat 'docker run -d -p 8080:8080 --name devops-demo-container devops-demo:latest'
             }
         }
     }
