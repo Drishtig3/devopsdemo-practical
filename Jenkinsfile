@@ -23,15 +23,17 @@ pipeline {
         }
 
         stage('Docker Build') {
-    steps {
-        bat '"C:\\Users\\chand\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t devops-demo:latest .'
-    }
-}
+            steps {
+                bat '"C:\\Users\\chand\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t devops-demo:latest .'
+            }
+        }
 
         stage('Deploy') {
             steps {
-                bat 'docker rm -f devops-demo-container || true'
-                bat 'docker run -d -p 8080:8080 --name devops-demo-container devops-demo:latest'
+                bat '''
+                "C:\\Users\\chand\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" rm -f devops-demo-container 2>NUL
+                "C:\\Users\\chand\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" run -d --name devops-demo-container -p 8080:8080 devops-demo:latest
+                '''
             }
         }
     }
